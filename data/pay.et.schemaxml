@@ -6,10 +6,10 @@
 <canvas zoom="100">
 <tables>
 <table name="bank" view="colnames">
-<left>566</left>
-<top>319</top>
+<left>16</left>
+<top>313</top>
 <width>148</width>
-<height>231</height>
+<height>199</height>
 <sql_create_table>CREATE TABLE `bank` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
@@ -23,8 +23,8 @@
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="bank_account" view="colnames">
-<left>209</left>
-<top>49</top>
+<left>530</left>
+<top>127</top>
 <width>166</width>
 <height>163</height>
 <sql_create_table>CREATE TABLE `bank_account` (
@@ -43,9 +43,9 @@
 </table>
 <table name="bank_branch" view="colnames">
 <left>374</left>
-<top>246</top>
+<top>295</top>
 <width>132</width>
-<height>197</height>
+<height>168</height>
 <sql_create_table>CREATE TABLE `bank_branch` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `bank_id` int(11) DEFAULT NULL,
@@ -59,10 +59,10 @@
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="bank_transaction" view="colnames">
-<left>571</left>
-<top>10</top>
+<left>853</left>
+<top>86</top>
 <width>202</width>
-<height>211</height>
+<height>247</height>
 <sql_create_table>CREATE TABLE `bank_transaction` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `from_bank_account_id` int(11) NOT NULL,
@@ -81,10 +81,10 @@
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="user" view="colnames">
-<left>22</left>
-<top>147</top>
+<left>195</left>
+<top>143</top>
 <width>140</width>
-<height>231</height>
+<height>219</height>
 <sql_create_table>CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(255) CHARACTER SET latin1 NOT NULL,
@@ -98,6 +98,25 @@
   PRIMARY KEY (`id`),
   UNIQUE KEY `FK_email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci</sql_create_table>
+</table>
+<table name="proxy_account" view="colnames">
+<left>362</left>
+<top>11</top>
+<width>142</width>
+<height>164</height>
+<sql_create_table>CREATE TABLE `proxy_account` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `bank_account_id` int(11) NOT NULL,
+  `amount` decimal(10,0) DEFAULT NULL,
+  `insert_time` datetime DEFAULT NULL,
+  `update_time` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `bank_account_id` (`bank_account_id`),
+  CONSTRAINT `proxy_account_ibfk_2` FOREIGN KEY (`bank_account_id`) REFERENCES `bank_account` (`id`),
+  CONSTRAINT `proxy_account_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 </tables>
 </canvas>
