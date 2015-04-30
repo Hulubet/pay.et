@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="latin1" collation="latin1_swedish_ci">pay.et</database>
+</source>
+<canvas zoom="100">
+<tables>
+<table name="bank" view="colnames">
+<left>566</left>
+<top>319</top>
+<width>148</width>
+<height>231</height>
+<sql_create_table>CREATE TABLE `bank` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `code` varchar(50) DEFAULT NULL,
+  `description` text,
+  `ussd` varchar(50) DEFAULT NULL,
+  `internet` varchar(50) DEFAULT NULL,
+  `insert_time` datetime DEFAULT NULL,
+  `last_update` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="bank_account" view="colnames">
+<left>209</left>
+<top>49</top>
+<width>166</width>
+<height>163</height>
+<sql_create_table>CREATE TABLE `bank_account` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `bank_branch_id` int(11) DEFAULT NULL,
+  `account_number` int(11) DEFAULT NULL,
+  `insert_time` datetime DEFAULT NULL,
+  `last_update` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `bank_branch_id` (`bank_branch_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `bank_account_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `bank_account_ibfk_1` FOREIGN KEY (`bank_branch_id`) REFERENCES `bank_branch` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="bank_branch" view="colnames">
+<left>374</left>
+<top>246</top>
+<width>132</width>
+<height>197</height>
+<sql_create_table>CREATE TABLE `bank_branch` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `bank_id` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `code` varchar(50) DEFAULT NULL,
+  `insert_time` datetime DEFAULT NULL,
+  `last_update` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `bank_id` (`bank_id`),
+  CONSTRAINT `bank_branch_ibfk_1` FOREIGN KEY (`bank_id`) REFERENCES `bank` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="bank_transaction" view="colnames">
+<left>571</left>
+<top>10</top>
+<width>202</width>
+<height>211</height>
+<sql_create_table>CREATE TABLE `bank_transaction` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `from_bank_account_id` int(11) NOT NULL,
+  `to_bank_account_id` int(11) NOT NULL,
+  `amount` decimal(10,0) DEFAULT NULL,
+  `balance` datetime DEFAULT NULL,
+  `method` varchar(50) DEFAULT NULL,
+  `status` varchar(50) DEFAULT NULL,
+  `insert_time` datetime DEFAULT NULL,
+  `last_update` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `bank_account_id` (`from_bank_account_id`),
+  KEY `to_bank_account_id` (`to_bank_account_id`),
+  CONSTRAINT `bank_transaction_ibfk_2` FOREIGN KEY (`to_bank_account_id`) REFERENCES `bank_account` (`id`),
+  CONSTRAINT `bank_transaction_ibfk_1` FOREIGN KEY (`from_bank_account_id`) REFERENCES `bank_account` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="user" view="colnames">
+<left>22</left>
+<top>147</top>
+<width>140</width>
+<height>231</height>
+<sql_create_table>CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `password` varchar(255) CHARACTER SET latin1 COLLATE latin1_general_cs DEFAULT NULL,
+  `first_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `last_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `gender` varchar(6) CHARACTER SET latin1 DEFAULT NULL,
+  `status` int(11) DEFAULT NULL COMMENT '0-waiting,1 active, 2 blocked',
+  `insert_time` datetime NOT NULL,
+  `last_update` timestamp NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `FK_email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>

@@ -1,0 +1,23 @@
+
+!.gitignore
+# Composer files
+composer.phar
+
+# Local configs
+config/autoload/*.local.php
+
+# Binary gettext files
+*.mo
+
+# Data
+data/logs/
+data/cache/
+data/sessions/
+data/tmp/
+_temp/*
+.settings/*
+.DS_Store
+.idea
+.project
+.git
+.buildpath
