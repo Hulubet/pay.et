@@ -13,6 +13,12 @@ This banks support
 *	follow up on loan accounts
 *	Applying for a Letter of Credit.
 
+But all the above solution doesn’t allow us to buy product or service online directly. 
+
+This project aim is to facilitate developers, business, financial organization or law maker to create a working system or work around to enable Ethiopian online user to buy product/service. This project is open for anyone. You can contribute anything from idea, model, schema, Specification, code with any programing language, Law, rules and regulation and other. 
+
+For starter here is some introduction 
+
 
 Introduction
 ------------
